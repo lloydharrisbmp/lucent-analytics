@@ -1,7 +1,13 @@
 from fastapi import APIRouter, HTTPException, Path, Body, Depends, Request # Add Request
 from pydantic import BaseModel, Field
 from typing import List, Optional
-import databutton as db
+try:
+    import databutton as db
+except ImportError:
+    # Use mock databutton for local development
+    import sys
+    sys.path.append('..')
+    import databutton_mock as db
 from datetime import datetime
 import uuid
 import re # Import re for sanitization

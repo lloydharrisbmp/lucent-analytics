@@ -13,10 +13,9 @@ import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "components/Spinner";
-import { AlertCircle, Calculator, CheckCircle, ChevronRight, Clock, DollarSign, HelpCircle, Info, Percent, Star, Strategy, TrendingUp } from "lucide-react";
+import { AlertCircle, Calculator, CheckCircle, ChevronRight, Clock, DollarSign, HelpCircle, Info, Percent, Star, Target, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
 import brain from "brain";
-import { useEffect } from "react";
 
 // Define types for our component
 interface WorkloadEstimate {
@@ -271,7 +270,7 @@ export function GrantROICalculator() {
             ROI Calculator
           </TabsTrigger>
           <TabsTrigger value="optimizer">
-            <Strategy className="h-4 w-4 mr-2" />
+            <Target className="h-4 w-4 mr-2" />
             Strategy Optimizer
           </TabsTrigger>
         </TabsList>
@@ -618,7 +617,7 @@ export function GrantROICalculator() {
                     onClick={optimizeStrategy}
                     disabled={selectedGrantIds.length === 0 || optimizationLoading}
                   >
-                    {optimizationLoading ? <Spinner size="sm" className="mr-2" /> : <Strategy className="h-4 w-4 mr-2" />}
+                    {optimizationLoading ? <Spinner size="sm" className="mr-2" /> : <Target className="h-4 w-4 mr-2" />}
                     Optimize Strategy
                   </Button>
                 </div>

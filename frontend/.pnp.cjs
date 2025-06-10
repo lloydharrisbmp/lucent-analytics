@@ -198,6 +198,7 @@ const RAW_RUNTIME_STATE =
           ["@types/recordrtc", "npm:5.6.14"],\
           ["@types/reveal.js", "npm:5.0.5"],\
           ["@types/three", "npm:0.164.1"],\
+          ["@types/uuid", "npm:10.0.0"],\
           ["@types/vinyl-fs", "npm:3.0.5"],\
           ["@uidotdev/usehooks", "virtual:99e3a7532080301f26587f4e4f5d2ec5dc431a1b56ec9a25f03437b6d5fa66ce0780bbdce13ce68ef0f9bdaaf1489ef6534a13a90db1cf1d439e5a65abadb568#npm:2.4.1"],\
           ["@vapi-ai/web", "npm:2.1.3"],\
@@ -360,6 +361,7 @@ const RAW_RUNTIME_STATE =
           ["typescript", "patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"],\
           ["typescript-language-server", "npm:4.3.2"],\
           ["userflow.js", "npm:2.12.1"],\
+          ["uuid", "npm:11.1.0"],\
           ["vaul", "virtual:99e3a7532080301f26587f4e4f5d2ec5dc431a1b56ec9a25f03437b6d5fa66ce0780bbdce13ce68ef0f9bdaaf1489ef6534a13a90db1cf1d439e5a65abadb568#npm:0.9.2"],\
           ["viem", "virtual:99e3a7532080301f26587f4e4f5d2ec5dc431a1b56ec9a25f03437b6d5fa66ce0780bbdce13ce68ef0f9bdaaf1489ef6534a13a90db1cf1d439e5a65abadb568#npm:2.21.51"],\
           ["vinyl-fs", "npm:3.0.3"],\
@@ -32643,6 +32645,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/uuid", [\
+      ["npm:10.0.0", {\
+        "packageLocation": "../../../../../../../.yarn/berry/cache/@types-uuid-npm-10.0.0-9ac1066765-10c0.zip/node_modules/@types/uuid/",\
+        "packageDependencies": [\
+          ["@types/uuid", "npm:10.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:8.3.4", {\
         "packageLocation": "../../../../../../../.yarn/berry/cache/@types-uuid-npm-8.3.4-7547f4402c-10c0.zip/node_modules/@types/uuid/",\
         "packageDependencies": [\
@@ -47895,6 +47904,7 @@ const RAW_RUNTIME_STATE =
           ["@types/recordrtc", "npm:5.6.14"],\
           ["@types/reveal.js", "npm:5.0.5"],\
           ["@types/three", "npm:0.164.1"],\
+          ["@types/uuid", "npm:10.0.0"],\
           ["@types/vinyl-fs", "npm:3.0.5"],\
           ["@uidotdev/usehooks", "virtual:99e3a7532080301f26587f4e4f5d2ec5dc431a1b56ec9a25f03437b6d5fa66ce0780bbdce13ce68ef0f9bdaaf1489ef6534a13a90db1cf1d439e5a65abadb568#npm:2.4.1"],\
           ["@vapi-ai/web", "npm:2.1.3"],\
@@ -48057,6 +48067,7 @@ const RAW_RUNTIME_STATE =
           ["typescript", "patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"],\
           ["typescript-language-server", "npm:4.3.2"],\
           ["userflow.js", "npm:2.12.1"],\
+          ["uuid", "npm:11.1.0"],\
           ["vaul", "virtual:99e3a7532080301f26587f4e4f5d2ec5dc431a1b56ec9a25f03437b6d5fa66ce0780bbdce13ce68ef0f9bdaaf1489ef6534a13a90db1cf1d439e5a65abadb568#npm:0.9.2"],\
           ["viem", "virtual:99e3a7532080301f26587f4e4f5d2ec5dc431a1b56ec9a25f03437b6d5fa66ce0780bbdce13ce68ef0f9bdaaf1489ef6534a13a90db1cf1d439e5a65abadb568#npm:2.21.51"],\
           ["vinyl-fs", "npm:3.0.3"],\
@@ -64963,6 +64974,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["uuid", [\
+      ["npm:11.1.0", {\
+        "packageLocation": "../../../../../../../.yarn/berry/cache/uuid-npm-11.1.0-61d0d08928-10c0.zip/node_modules/uuid/",\
+        "packageDependencies": [\
+          ["uuid", "npm:11.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:3.3.3", {\
         "packageLocation": "../../../../../../../.yarn/berry/cache/uuid-npm-3.3.3-db057f4601-10c0.zip/node_modules/uuid/",\
         "packageDependencies": [\

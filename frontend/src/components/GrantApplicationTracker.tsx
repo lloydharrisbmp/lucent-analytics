@@ -42,7 +42,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useToast } from "sonner";
+import { toast } from "sonner";
 import { 
   Search, 
   PlusCircle, 
@@ -117,7 +117,6 @@ interface GrantApplication {
 
 export function GrantApplicationTracker() {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [applications, setApplications] = useState<GrantApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

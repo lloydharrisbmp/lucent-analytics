@@ -21,13 +21,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useToast } from "sonner";
+import { toast } from "sonner";
 import { ArrowLeft, AlertCircle, CheckCircle } from "lucide-react";
 
 export default function GrantApplicationForm() {
   const { grantId } = useParams<{ grantId: string }>();
   const navigate = useNavigate();
-  const { toast } = useToast();
   
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);

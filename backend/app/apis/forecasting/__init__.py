@@ -1,13 +1,24 @@
 
 import pandas as pd
-from prophet import Prophet
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
-from typing import List, Literal
+from typing import List, Literal, Dict, Optional
 import logging
 from datetime import date, timedelta
-import pmdarima as pm
-from typing import Dict, Optional
+
+try:
+    from prophet import Prophet
+    PROPHET_AVAILABLE = True
+except ImportError:
+    PROPHET_AVAILABLE = False
+    print("Warning: Prophet not available. Prophet-based forecasting will be disabled.")
+
+try:
+    import pmdarima as pm
+    PMDARIMA_AVAILABLE = True
+except ImportError:
+    PMDARIMA_AVAILABLE = False
+    print("Warning: pmdarima not available. ARIMA-based forecasting will be disabled.")
 
 # Basic logging (using print as logging module is not available)
 print("Initializing forecasting API...")
@@ -76,6 +87,9 @@ async def forecast_score(request: ForecastRequest) -> ForecastResponse:
     Generates a time-series forecast for financial health scores using Prophet.
     Requires historical data points (date, score).
     """
+    if not PROPHET_AVAILABLE:
+        raise HTTPException(status_code=503, detail="Prophet forecasting is not available. Please install the required dependencies.")
+    
     print(f"Received forecast request with {len(request.historical_data)} data points, forecasting {request.periods} periods with freq '{request.freq}'.")
 
     if len(request.historical_data) < 3: # Prophet needs at least 2, ideally more
@@ -85,7 +99,7 @@ async def forecast_score(request: ForecastRequest) -> ForecastResponse:
     # Prepare DataFrame for Prophet
     try:
         history_df = pd.DataFrame([p.model_dump() for p in request.historical_data])
-        history_df['ds'] = pd.to_datetime(history_df['date'])
+        history_df['ds'] = pd.to_datetime(history_df['point_date'])
         history_df = history_df.rename(columns={'score': 'y'})
         history_df = history_df[['ds', 'y']]
         print("Historical data prepared for Prophet:")
@@ -166,7 +180,7 @@ async def forecast_score(request: ForecastRequest) -> ForecastResponse:
         response_data_df = future_forecast_df[['date', 'yhat', 'yhat_lower', 'yhat_upper']]
 
         # Convert DataFrame rows to list of ForecastPoint models
-        forecast_points = [ForecastPoint(**row) for row in response_data_df.to_dict(orient='records')]
+        forecast_points = [ForecastPoint(forecast_date=row['date'], forecasted_score=row['yhat'], lower_bound=row['yhat_lower'], upper_bound=row['yhat_upper']) for row in response_data_df.to_dict(orient='records')]
 
         print(f"Returning {len(forecast_points)} forecasted points.")
         return ForecastResponse(forecast_data=forecast_points)
@@ -203,6 +217,13 @@ async def forecast_account(request: AccountForecastRequest) -> AccountForecastRe
     """
     Generates time-series forecasts for multiple financial accounts using ARIMA or Prophet.
     """
+    # Check if requested method is available
+    if request.method == "Prophet" and not PROPHET_AVAILABLE:
+        raise HTTPException(status_code=503, detail="Prophet forecasting is not available. Please install the required dependencies or use ARIMA method.")
+    
+    if request.method == "ARIMA" and not PMDARIMA_AVAILABLE:
+        raise HTTPException(status_code=503, detail="ARIMA forecasting is not available. Please install the required dependencies or use Prophet method.")
+    
     print(f"Received account forecast request for {len(request.accounts_data)} accounts, method: {request.method}, forecasting {request.periods} periods with freq '{request.freq}'.")
 
     all_results: List[SingleAccountForecast] = []
@@ -223,7 +244,7 @@ async def forecast_account(request: AccountForecastRequest) -> AccountForecastRe
 
                 # Prepare DataFrame for Prophet
                 history_df_prophet = pd.DataFrame([p.model_dump() for p in account_data.historical_data])
-                history_df_prophet['ds'] = pd.to_datetime(history_df_prophet['date'])
+                history_df_prophet['ds'] = pd.to_datetime(history_df_prophet['point_date'])
                 history_df_prophet = history_df_prophet.rename(columns={'value': 'y'})
                 history_df_prophet = history_df_prophet[['ds', 'y']].sort_values('ds') # Ensure sorted
                 print(f"Data prepared for {account_name} (Prophet, {len(history_df_prophet)} points):")
@@ -262,7 +283,7 @@ async def forecast_account(request: AccountForecastRequest) -> AccountForecastRe
 
                 # Prepare response
                 forecast_points = [
-                    AccountForecastPoint(date=row['date'], forecasted_value=row['yhat'])
+                    AccountForecastPoint(forecast_date=row['date'], forecasted_value=row['yhat'])
                     for _, row in future_forecast_df.iterrows()
                 ]
                 forecast_result.forecast_data = forecast_points
@@ -277,7 +298,7 @@ async def forecast_account(request: AccountForecastRequest) -> AccountForecastRe
 
                     # Prepare DataFrame for ARIMA
                     history_df_arima = pd.DataFrame([p.model_dump() for p in account_data.historical_data])
-                    history_df_arima['date'] = pd.to_datetime(history_df_arima['date'])
+                    history_df_arima['date'] = pd.to_datetime(history_df_arima['point_date'])
                     history_df_arima = history_df_arima.sort_values('date').set_index('date')
                     
                     # Use pmdarima with compatibility settings

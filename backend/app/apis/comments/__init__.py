@@ -4,7 +4,13 @@ from typing import List, Optional, Annotated
 from datetime import datetime, timezone # Added timezone
 from google.cloud.firestore import Query as FirestoreQuery # Aliased to avoid conflict
 import google.cloud.firestore # Import the base module
-import databutton as db
+try:
+    import databutton as db
+except ImportError:
+    # Use mock databutton for local development
+    import sys
+    sys.path.append('..')
+    import databutton_mock as db
 from app.auth import AuthorizedUser
 # Import notification creation logic
 from app.apis.compliance_notifications import _create_and_store_notification, NotificationCreate

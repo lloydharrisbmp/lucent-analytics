@@ -37,18 +37,18 @@ const formSchema = z.object({
 });
 
 // Define the type for the form data
-type FormData = z.infer<typeof formSchema>;
+export type EntityFormData = z.infer<typeof formSchema>;
 
 interface Props {
-  onSubmit: (values: FormData) => void;
+  onSubmit: (values: EntityFormData) => void;
   onCancel: () => void;
   initialData?: Partial<BusinessEntityBase> | null; // Optional initial data for editing (not used here yet)
   potentialParents: BusinessEntityBase[]; // List of entities that can be parents
   isLoading?: boolean; // Optional loading state for submit button
 }
 
-function EntityForm({ onSubmit, onCancel, initialData, potentialParents, isLoading = false }: Props) {
-  const form = useForm<FormData>({
+export function EntityForm({ onSubmit, onCancel, initialData, potentialParents, isLoading = false }: Props) {
+  const form = useForm<EntityFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: initialData?.name || "",
@@ -61,7 +61,7 @@ function EntityForm({ onSubmit, onCancel, initialData, potentialParents, isLoadi
   });
 
   // Handle form submission
-  function handleFormSubmit(values: FormData) {
+  function handleFormSubmit(values: EntityFormData) {
     // Ensure parent_entity_id is null if the special "__none__" value is selected
     const submissionValues = {
         ...values,

@@ -53,7 +53,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useToast } from "sonner";
+import { toast } from "sonner";
 import {
   Calendar,
   Clock,
@@ -170,7 +170,6 @@ interface GrantApplication {
 export default function GrantApplicationDetails() {
   const { applicationId } = useParams<{ applicationId: string }>();
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [application, setApplication] = useState<GrantApplication | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
