@@ -1,0 +1,25 @@
+# Workspace version: 1.45.1
+databutton==0.38.34
+ipykernel==6.29.5
+fastapi==0.111.0
+python-multipart==0.0.9
+uvicorn[standard]==0.29.0
+
+openai
+beautifulsoup4
+requests
+stripe
+matplotlib
+pandas
+statsmodels
+numpy
+pmdarima
+mypy
+prophet
+google-cloud-firestore
+numpy>=1.24.0,<1.27.0
+pmdarima>=2.0.4,<3.0.0
+plotly
+pytz>=2023.3
+prophet>=1.1.4
+statsmodels>=0.14.0
