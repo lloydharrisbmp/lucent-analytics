@@ -56,7 +56,7 @@
     "@newrelic/browser-agent": "^1.279.1",
     "@novnc/novnc": "1.6.0-beta",
     "@openai/realtime-api-beta": "github:openai/openai-realtime-api-beta",
-    "@pdfme/common": "5.3.3",
+    "@pdfme/common": "5.4.5",
     "@pdfme/generator": "5.3.3",
     "@pdfme/schemas": "5.3.3",
     "@pdfme/ui": "5.3.3",
